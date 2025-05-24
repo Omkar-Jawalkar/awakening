@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String       @id @default(uuid())
+  name       String
+  email      String       @unique
+  phone      String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Task       Task[]
+  Score      Score[]
+  Meditation Meditation[]
+  Workout    Workout[]
+
+  @@index([id], name: "idx_user_id")
+}
+
+model Score {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  level       String
+  levelPoints Int
+  dailyScore  Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId], name: "idx_score_userid")
+}
+
+model Task {
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  taskName     String
+  taskPriority String // e.g., "low", "medium", "high"
+  taskStatus   String // e.g., "pending", "completed"
+  modeType     String // e.g., "Basic", "Advanced", "Pro"
+  XPValue      Float
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId, modeType], name: "idx_task_userid")
+}
+
+model Meditation {
+  id                String   @id @default(uuid())
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String
+  meditationName    String // e.g., "Morning Calm", "Evening Relaxation"
+  meditationType    String? // e.g., "guided", "unguided"
+  meditationMinutes Int // duration in minutes
+  XPValue           Float
+  modeType          String // e.g., "Basic", "Advance"
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId, modeType], name: "idx_meditation_userid")
+}
+
+model Workout {
+  id          String   @id @default(uuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  pushupCount Int
+  curlupCount Int
+  XPValue     Float
+  squatCount  Int
+  runWalk     Int
+  modeType    String // e.g., "Basic", "Advance"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, modeType], name: "idx_workout_userid")
+}

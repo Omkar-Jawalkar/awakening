@@ -1,0 +1,38 @@
+{
+    "dependencies": {
+        "@prisma/client": "^6.8.2",
+        "@types/node": "^22.15.21",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "helmet": "^8.1.0",
+        "morgan": "^1.10.0",
+        "pg": "^8.16.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    },
+    "type": "module",
+    "engines": {
+        "node": ">=18"
+    },
+    "scripts": {
+        "dev:backend": "nodemon --exec node backend/index.js"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.18",
+        "@types/express": "^5.0.2",
+        "@types/helmet": "^4.0.0",
+        "@types/morgan": "^1.9.9",
+        "eslint": "^9.27.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^5.4.0",
+        "nodemon": "^3.1.10",
+        "prettier": "^3.5.3",
+        "prisma": "^6.8.2",
+        "ts-node-dev": "^2.0.0",
+        "tsx": "^4.19.4"
+    }
+}
