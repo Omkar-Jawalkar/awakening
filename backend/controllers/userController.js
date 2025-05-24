@@ -11,7 +11,6 @@ export const getAllUsers = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
     try {
-        console.log("mybody", req.body);
         const user = await userService.createUser(req.body);
         res.status(201).json(user);
     } catch (error) {
