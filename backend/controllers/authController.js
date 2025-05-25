@@ -13,10 +13,11 @@ const googleAuthCallback = passport.authenticate("google", {
 
 const authSuccess = (req, res) => {
     if (req.user) {
-        // Generate JWT token if using token-based auth
-        // const token = authService.generateToken(req.user);
-        res.redirect(`http://localhost:3000/auth-success`);
-        // res.redirect(`${process.env.FRONTEND_URL}/auth-success?token=${token}`);
+        const token = authService.generateToken(req.user);
+        const refreshToken = authService.generateRefreshToken(req.user);
+        res.redirect(
+            `${process.env.FRONTEND_URL}auth-success?token=${token}?refreshToken=${refreshToken}`
+        );
     } else {
         res.redirect("/login");
     }

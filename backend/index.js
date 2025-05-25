@@ -9,6 +9,7 @@ import session from "express-session";
 import prisma from "./prisma/client.js";
 import passport from "./config/passport.js";
 import errorHandlers from "./utils/errorHandlers.js";
+import authUnless from "./middlewares/publicAuth.js";
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(authUnless);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
