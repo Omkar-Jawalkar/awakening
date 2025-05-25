@@ -18,6 +18,8 @@ model User {
   name       String
   email      String       @unique
   phone      String?
+  googleId   String?      @unique
+  githubId   String?      @unique
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   Task       Task[]
@@ -26,6 +28,7 @@ model User {
   Workout    Workout[]
 
   @@index([id], name: "idx_user_id")
+  @@index([googleId], name: "idx_user_googleid")
 }
 
 model Score {

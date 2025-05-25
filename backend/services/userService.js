@@ -8,4 +8,28 @@ const createUser = async (userData) => {
     return await prisma.user.create({ data: userData });
 };
 
-export default { getAllUsers, createUser };
+const deleteUser = async (userId) => {
+    return await prisma.user.delete({
+        where: {
+            id: userId,
+        },
+    });
+};
+
+const findUserByGoogleId = async (googleId) => {
+    return await prisma.user.findUnique({
+        where: {
+            googleId: googleId,
+        },
+    });
+};
+
+const findUserById = async (userId) => {
+    return await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+    });
+};
+
+export default { getAllUsers, deleteUser, createUser };

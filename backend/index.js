@@ -4,7 +4,11 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import session from "express-session";
 import prisma from "./prisma/client.js";
+import passport from "./config/passport.js";
+import errorHandlers from "./utils/errorHandlers.js";
 
 const app = express();
 
@@ -19,6 +23,16 @@ app.use(
 );
 app.use(helmet());
 app.use(morgan("combined"));
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { secure: process.env.NODE_ENV === "production" },
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {
@@ -33,12 +47,14 @@ app.get("/api/health", (req, res) => {
 
 // API Routes
 app.use("/api/v0/users", userRoutes);
-// app.use("/api/auth", require("./routes/auth.routes"));
-// Add more routes here...
+app.use("/api/v0/auth", authRoutes);
 
-// Error handling middleware
-// app.use(notFound);
-// app.use(errorHandler);
+app.use("/api", errorHandlers.apiNotFoundHandler);
+app.use((req, res, next) => {
+    res.status(404).send("Not Found");
+});
+
+app.use(errorHandlers.apiErrorFormatter);
 
 // Server startup
 const PORT = process.env.PORT || 4000;
@@ -48,10 +64,6 @@ async function startServer() {
         try {
             await prisma.$connect();
             console.log("✅ Prisma connected to database");
-
-            app.listen(3000, () => {
-                console.log("Server running on port 3000");
-            });
         } catch (error) {
             console.error("❌ Prisma connection error:", error);
             process.exit(1);

@@ -9,6 +9,15 @@ export const getAllUsers = async (req, res, next) => {
     }
 };
 
+export const deleteUser = async (req, res, next) => {
+    try {
+        const user = await userService.deleteUser(req.query.id);
+        res.status(201).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const createUser = async (req, res, next) => {
     try {
         const user = await userService.createUser(req.body);
@@ -18,4 +27,4 @@ export const createUser = async (req, res, next) => {
     }
 };
 
-export default { getAllUsers, createUser };
+export default { getAllUsers, createUser, deleteUser };
