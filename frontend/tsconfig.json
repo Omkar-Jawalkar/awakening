@@ -11,7 +11,7 @@
             "Components/*": ["./src/Components/*"],
             "Utils/*": ["./src/Utils/*"],
             "Types/*": ["./src/Types/*"],
-            
+            "Assets/*": ["./src/assets/*"]
         },
 
         /* Bundler mode */
