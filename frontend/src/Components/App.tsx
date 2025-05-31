@@ -1,7 +1,10 @@
+import Login from "Components/login/login";
 function App() {
     return (
         <>
-            <h1>This is omkar</h1>
+            <div className="bg-[#1f1531] h-screen">
+                <Login />
+            </div>
         </>
     );
 }
