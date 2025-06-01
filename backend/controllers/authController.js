@@ -16,7 +16,7 @@ const authSuccess = (req, res) => {
         const token = authService.generateToken(req.user);
         const refreshToken = authService.generateRefreshToken(req.user);
         res.redirect(
-            `${process.env.FRONTEND_URL}auth-success?token=${token}?refreshToken=${refreshToken}`
+            `awakening://auth-success?token=${token}?refreshToken=${refreshToken}`
         );
     } else {
         res.redirect("/login");

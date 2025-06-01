@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, shell, ipcMain, dialog } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -27,6 +27,16 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
     : RENDERER_DIST;
 
 let win: BrowserWindow | null;
+
+ipcMain.handle("open-external", async (_, url) => {
+    try {
+        await shell.openExternal(url);
+        return { success: true };
+    } catch (error: any) {
+        console.error("Failed to open external URL:", error);
+        return { success: false, error: error.message };
+    }
+});
 
 function createWindow() {
     win = new BrowserWindow({
@@ -66,6 +76,16 @@ app.on("window-all-closed", () => {
     }
 });
 
+if (process.defaultApp) {
+    if (process.argv.length >= 2) {
+        app.setAsDefaultProtocolClient("awakening", process.execPath, [
+            path.resolve(process.argv[1]),
+        ]);
+    }
+} else {
+    app.setAsDefaultProtocolClient("awakening");
+}
+
 app.on("activate", () => {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -75,3 +95,12 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+app.on("open-url", (event, url) => {
+    console.log("enevt", event);
+    if (win !== null) {
+        win.webContents.send("set-token", url);
+    } else {
+        dialog.showErrorBox("Error", "Window is not available to send URL");
+    }
+});

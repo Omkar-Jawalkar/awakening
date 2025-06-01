@@ -3,3 +3,10 @@ node_modules
 .env
 
 /generated/prisma
+
+/frontend/dist-electron
+
+electron/electron-env.d.ts
+
+electron-env.d.ts
+
