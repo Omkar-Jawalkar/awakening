@@ -2,7 +2,6 @@ import mainImage from "Assets/junwoo-2.jpg";
 import { googleLogin } from "../../api/googleLogin";
 
 const Login = () => {
-    // const [first, setfirst] = useState(false);
     return (
         <div className="flex justify-start items-center  bg-[#1f1531] h-screen">
             <img
