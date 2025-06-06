@@ -27,4 +27,13 @@ export const createUser = async (req, res, next) => {
     }
 };
 
-export default { getAllUsers, createUser, deleteUser };
+export const findUserById = async (req, res, next) => {
+    try {
+        const user = await userService.findUserById(req.query.id);
+        res.status(201).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export default { getAllUsers, createUser, deleteUser, findUserById };

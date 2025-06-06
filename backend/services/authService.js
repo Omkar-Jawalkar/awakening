@@ -69,6 +69,14 @@ const verifyToken = (token) => {
     }
 };
 
+const verifyRefreshToken = (refreshToken) => {
+    try {
+        return jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+    } catch (err) {
+        return null;
+    }
+};
+
 // Generate refresh token (long-lived)
 const generateRefreshToken = (user) => {
     return jwt.sign(
@@ -85,4 +93,5 @@ export default {
     verifyToken,
     generateRefreshToken,
     logout,
+    verifyRefreshToken,
 };

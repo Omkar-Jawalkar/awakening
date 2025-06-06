@@ -16,7 +16,7 @@ const authSuccess = (req, res) => {
         const token = authService.generateToken(req.user);
         const refreshToken = authService.generateRefreshToken(req.user);
         res.redirect(
-            `awakening://auth-success?token=${token}?refreshToken=${refreshToken}`
+            `awakening://auth-success?token=${token}?refreshToken=${refreshToken}?id=${req.user.id}`
         );
     } else {
         res.redirect("/login");
@@ -45,10 +45,27 @@ const getCurrentUser = (req, res) => {
     }
 };
 
+const generateTokenUsingRefreshToken = (req, res) => {
+    try {
+        const token = authService.verifyRefreshToken(req.body.refreshToken);
+        console.log("token,", token);
+        if (token) {
+            const newToken = authService.generateToken(token);
+            res.status(200).json({ token: newToken });
+        } else throw new Error("Error Generating Token Using Refresh Token");
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error Generating Token",
+        });
+    }
+};
+
 export default {
     googleAuth,
     googleAuthCallback,
     authSuccess,
     logout,
     getCurrentUser,
+    generateTokenUsingRefreshToken,
 };

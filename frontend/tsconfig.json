@@ -11,7 +11,8 @@
             "Components/*": ["./src/Components/*"],
             "Utils/*": ["./src/Utils/*"],
             "Types/*": ["./src/Types/*"],
-            "Assets/*": ["./src/assets/*"]
+            "Assets/*": ["./src/assets/*"],
+            "@AxiosConfig/*": ["./src/axios/*"]
         },
 
         /* Bundler mode */

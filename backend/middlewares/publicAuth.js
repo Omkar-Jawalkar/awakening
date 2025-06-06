@@ -4,7 +4,7 @@ import auth from "./auth.js";
 const publicRoutes = [
     "/api/v0/auth/google",
     "/api/v0/auth/google/callback",
-    "/api/v0/auth/refresh-token",
+    "/api/v0/auth/generateTokenUsingRefreshToken",
     "/api/v0/login",
     "/api/v0/signup",
 ];

@@ -12,7 +12,11 @@ router.get(
 );
 
 // Session routes
-router.get("/current-user", authController.getCurrentUser);
+router.get("/currentUser", authController.getCurrentUser);
+router.post(
+    "/generateTokenUsingRefreshToken",
+    authController.generateTokenUsingRefreshToken
+);
 router.post("/logout", authController.logout);
 
 export default router;

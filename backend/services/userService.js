@@ -32,4 +32,4 @@ const findUserById = async (userId) => {
     });
 };
 
-export default { getAllUsers, deleteUser, createUser };
+export default { getAllUsers, deleteUser, createUser, findUserById };

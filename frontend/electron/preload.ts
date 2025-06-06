@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge } from "electron";
 import { electronAPI } from "@electron-toolkit/preload";
-import { getTokensFromUrl } from "./electron-utils";
+import { getTokensAndIdFromUrl } from "./electron-utils";
 
 declare global {
     interface Window {
@@ -42,9 +42,10 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
 // This is useful for handling custom protocol URLs like `awakening://set-token?token=...&refreshToken=...`
 window.addEventListener("DOMContentLoaded", () => {
     ipcRenderer.on("set-token", (_event, url) => {
-        const { token, refreshToken } = getTokensFromUrl(url);
+        const { token, refreshToken, id } = getTokensAndIdFromUrl(url);
         localStorage.setItem("token", token);
         localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("id", id);
         window.dispatchEvent(new Event("token-change"));
     });
 });
