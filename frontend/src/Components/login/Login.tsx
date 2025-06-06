@@ -1,7 +1,21 @@
 import mainImage from "Assets/junwoo-2.jpg";
 import { googleLogin } from "../../api/googleLogin";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        window.addEventListener("token-change", () => {
+            navigate("/home");
+        });
+
+        return () => {
+            window.removeEventListener("token-change", () => {});
+        };
+    }, [navigate]);
+
     return (
         <div className="flex justify-start items-center  bg-[#1f1531] h-screen">
             <img

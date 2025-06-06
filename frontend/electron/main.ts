@@ -97,7 +97,6 @@ app.on("activate", () => {
 app.whenReady().then(createWindow);
 
 app.on("open-url", (event, url) => {
-    console.log("enevt", event);
     if (win !== null) {
         win.webContents.send("set-token", url);
     } else {

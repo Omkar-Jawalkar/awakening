@@ -45,6 +45,7 @@ window.addEventListener("DOMContentLoaded", () => {
         const { token, refreshToken } = getTokensFromUrl(url);
         localStorage.setItem("token", token);
         localStorage.setItem("refreshToken", refreshToken);
+        window.dispatchEvent(new Event("token-change"));
     });
 });
 
