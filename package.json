@@ -20,9 +20,13 @@
         "node": ">=18"
     },
     "scripts": {
-        "dev:backend": "nodemon --exec node --inspect backend/index.js"
+        "dev:backend": "nodemon --exec node backend/index.js"
+    },
+    "prisma": {
+        "seed": "node backend/prisma/seed.js"
     },
     "devDependencies": {
+        "@faker-js/faker": "^9.8.0",
         "@types/cors": "^2.8.18",
         "@types/express": "^5.0.2",
         "@types/helmet": "^4.0.0",
@@ -33,6 +37,7 @@
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-prettier": "^5.4.0",
+        "faker": "^6.6.6",
         "nodemon": "^3.1.10",
         "prettier": "^3.5.3",
         "prisma": "^6.8.2",

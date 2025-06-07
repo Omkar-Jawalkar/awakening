@@ -10,6 +10,7 @@ import prisma from "./prisma/client.js";
 import passport from "./config/passport.js";
 import errorHandlers from "./utils/errorHandlers.js";
 import authUnless from "./middlewares/publicAuth.js";
+import meditationRoutes from "./routes/meditationRoutes.js";
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.get("/api/health", (req, res) => {
 // API Routes
 app.use("/api/v0/users", userRoutes);
 app.use("/api/v0/auth", authRoutes);
+app.use("/api/v0/meditation", meditationRoutes);
 
 app.use("/api", errorHandlers.apiNotFoundHandler);
 app.use((req, res, next) => {

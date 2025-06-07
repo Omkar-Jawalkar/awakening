@@ -23,8 +23,8 @@ model User {
   role       String       @default("user") // e.g., "user", "admin"
   password   String? // Optional for OAuth users
   userActive Boolean      @default(true)
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  createdAt  DateTime     @default(now()) @db.Date
+  updatedAt  DateTime     @updatedAt @db.Date
   Task       Task[]
   Score      Score[]
   Meditation Meditation[]
@@ -41,8 +41,8 @@ model Score {
   level       String
   levelPoints Int
   dailyScore  Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now()) @db.Date
+  updatedAt   DateTime @updatedAt @db.Date
 
   @@index([userId], name: "idx_score_userid")
 }
@@ -56,8 +56,8 @@ model Task {
   taskStatus   String // e.g., "pending", "completed"
   modeType     String // e.g., "Basic", "Advanced", "Pro"
   XPValue      Float
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now()) @db.Date
+  updatedAt    DateTime @updatedAt @db.Date
 
   @@index([userId, modeType], name: "idx_task_userid")
 }
@@ -71,8 +71,8 @@ model Meditation {
   meditationMinutes Int // duration in minutes
   XPValue           Float
   modeType          String // e.g., "Basic", "Advance"
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt         DateTime @default(now()) @db.Date
+  updatedAt         DateTime @updatedAt @db.Date
 
   @@index([userId, modeType], name: "idx_meditation_userid")
 }
@@ -87,8 +87,8 @@ model Workout {
   squatCount  Int
   runWalk     Int
   modeType    String // e.g., "Basic", "Advance"
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now()) @db.Date
+  updatedAt   DateTime @updatedAt @db.Date
 
   @@index([userId, modeType], name: "idx_workout_userid")
 }
