@@ -12,10 +12,11 @@ const deleteMeditation = async (meditationId) => {
     });
 };
 
-const updateMeditation = async (meditationId, meditationData) => {
+const updateMeditation = async (meditationId, userId, meditationData) => {
     return await prisma.meditation.update({
         where: {
             id: meditationId,
+            userId: userId,
         },
         data: meditationData,
     });

@@ -1,9 +1,10 @@
 import meditationService from "../services/meditationService.js";
 import { formatDate } from "../utils/formatDate.js";
+import { giveFormattedCurrentAndNextDate } from "../utils/giveFormattedCurrentAndNextDate.js";
 const createMeditation = async (req, res, next) => {
     try {
-        const users = await meditationService.createMeditation(req.body);
-        res.status(201).json(users);
+        const meditations = await meditationService.createMeditation(req.body);
+        res.status(201).json(meditations);
     } catch (error) {
         next(error);
     }
@@ -11,8 +12,10 @@ const createMeditation = async (req, res, next) => {
 
 const deleteMeditation = async (req, res, next) => {
     try {
-        const users = await meditationService.deleteMeditation(req.query.id);
-        res.status(200).json(users);
+        const meditation = await meditationService.deleteMeditation(
+            req.query.id
+        );
+        res.status(200).json(meditation);
     } catch (error) {
         next(error);
     }
@@ -20,20 +23,20 @@ const deleteMeditation = async (req, res, next) => {
 
 const updateMeditation = async (req, res, next) => {
     try {
-        const users = await meditationService.updateMeditation(
+        const meditation = await meditationService.updateMeditation(
             req.query.id,
+            req.user.id,
             req.body
         );
-        res.status(200).json(users);
+        res.status(200).json(meditation);
     } catch (error) {
         next(error);
     }
 };
 const getAllMeditationsUsingDate = async (req, res, next) => {
     try {
-        const formattedDate = formatDate(parseInt(req.query.date));
-        const nextDate = parseInt(req.query.date) + +24 * 60 * 60 * 1000;
-        const formattedNextDate = formatDate(nextDate);
+        const { formattedDate, formattedNextDate } =
+            giveFormattedCurrentAndNextDate(req.query.date);
         const meditations = await meditationService.getAllMeditationsUsingDate(
             req.user.id,
             new Date(formattedDate),
