@@ -3,6 +3,8 @@ import meditationService from "../services/meditationService.js";
 import { generateMeditationSeed } from "../seed/meditationSeed.js";
 import { generateWorkoutSeed } from "../seed/workoutSeed.js";
 import workoutService from "../services/workoutService.js";
+import { generateTaskSeed } from "../seed/taskSeed.js";
+import taskService from "../services/taskService.js";
 
 const prisma = new PrismaClient();
 
@@ -24,8 +26,17 @@ const workout = async () => {
     console.log("✅ Seeded workout data");
 };
 
+const task = async () => {
+    const taskSeed = generateTaskSeed(20);
+    for (const task of taskSeed) {
+        await taskService.createTask(task);
+    }
+    console.log("✅ Seeded task data");
+};
+
 async function main() {
-    workout();
+    // workout();
+    task();
 }
 
 await main()

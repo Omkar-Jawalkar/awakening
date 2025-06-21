@@ -11,6 +11,7 @@ import passport from "./config/passport.js";
 import errorHandlers from "./utils/errorHandlers.js";
 import authUnless from "./middlewares/publicAuth.js";
 import meditationRoutes from "./routes/meditationRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 
 const app = express();
 
@@ -58,6 +59,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/v0/users", userRoutes);
 app.use("/api/v0/auth", authRoutes);
 app.use("/api/v0/meditation", meditationRoutes);
+app.use("/api/v0/task", taskRoutes);
 
 app.use("/api", errorHandlers.apiNotFoundHandler);
 app.use((req, res, next) => {
