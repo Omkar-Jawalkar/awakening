@@ -8,7 +8,7 @@ const Login = () => {
 
     useEffect(() => {
         window.addEventListener("token-change", () => {
-            navigate("/home");
+            navigate("/");
         });
 
         return () => {
