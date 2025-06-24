@@ -29,9 +29,22 @@ const updateWorkout = async (workoutId, workoutData) => {
     });
 };
 
+const getWorketUsingData = async (userId, date, nextDate) => {
+    return await prisma.workout.findMany({
+        where: {
+            updatedAt: {
+                gte: date,
+                lt: nextDate,
+            },
+            userId: userId,
+        },
+    });
+};
+
 export default {
     getWorkouts,
     createWorkout,
     deleteWorkout,
     updateWorkout,
+    getWorketUsingData,
 };

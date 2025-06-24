@@ -12,7 +12,8 @@ import errorHandlers from "./utils/errorHandlers.js";
 import authUnless from "./middlewares/publicAuth.js";
 import meditationRoutes from "./routes/meditationRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
-
+import scoreRoutes from "./routes/scoreRoutes.js";
+import workoutRoutes from "./routes/workoutRoutes.js";
 const app = express();
 
 // Middleware
@@ -60,6 +61,8 @@ app.use("/api/v0/users", userRoutes);
 app.use("/api/v0/auth", authRoutes);
 app.use("/api/v0/meditation", meditationRoutes);
 app.use("/api/v0/task", taskRoutes);
+app.use("/api/v0/workout", workoutRoutes);
+app.use("/api/v0/score", scoreRoutes);
 
 app.use("/api", errorHandlers.apiNotFoundHandler);
 app.use((req, res, next) => {

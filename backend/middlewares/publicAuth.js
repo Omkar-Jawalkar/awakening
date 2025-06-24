@@ -13,6 +13,7 @@ const authUnless = (req, res, next) => {
     if (publicRoutes.some((route) => req.path.startsWith(route))) {
         return next();
     }
+    // return next()
     return auth.authenticate(req, res, next);
 };
 
