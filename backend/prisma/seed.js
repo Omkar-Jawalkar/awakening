@@ -36,7 +36,8 @@ const task = async () => {
 
 async function main() {
     // workout();
-    task();
+    // task();
+    meditation();
 }
 
 await main()

@@ -1,12 +1,26 @@
 import { createHashRouter } from "react-router-dom";
 import Login from "Components/login/Login";
-import ActionBackground from "../Components/actionBackground/ActionBackground";
 import Home from "Components/home/Home";
 import Settings from "../Components/settings/Settings";
+import Tasks from "../Components/tasks/Tasks";
+import Meditations from "../Components/meditations/Meditations";
+import Workouts from "../Components/workouts/Workouts";
 const router = createHashRouter([
     {
         path: "/",
-        element: <ActionBackground />,
+        element: <Home />,
+    },
+    {
+        path: "/home/tasks",
+        element: <Tasks />,
+    },
+    {
+        path: "/home/workouts",
+        element: <Workouts />,
+    },
+    {
+        path: "/home/meditations",
+        element: <Meditations />,
     },
     {
         path: "/login",

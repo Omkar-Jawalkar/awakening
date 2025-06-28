@@ -37,13 +37,13 @@ const processQueue = (error: any, token = null) => {
     failedQueue = [];
 };
 
-// Response Interceptor: Handle 401 and refresh
+// Response Interceptor: Handle 403 and refresh
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
 
             if (isRefreshing) {
@@ -84,6 +84,7 @@ api.interceptors.response.use(
                 processQueue(err, null);
                 // Optionally log out user or redirect
                 localStorage.clear();
+                debugger;
                 window.location.href = "/login";
                 return Promise.reject(err);
             } finally {
