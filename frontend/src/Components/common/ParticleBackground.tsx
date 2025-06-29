@@ -1,9 +1,11 @@
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { Engine } from "tsparticles-engine";
+
 import { useCallback } from "react";
 
 const ParticleBackground = () => {
-    const particlesInit = useCallback(async (engine: any) => {
+    const particlesInit = useCallback(async (engine: Engine) => {
         console.log("Particles Init:", engine);
         try {
             await loadFull(engine);
@@ -613,13 +615,7 @@ const ParticleBackground = () => {
                     particles: {
                         shape: {
                             type: "images",
-                            options: {
-                                images: {
-                                    src: "https://particles.js.org/images/cyan_amongus.png",
-                                    width: 500,
-                                    height: 634,
-                                },
-                            },
+                            options: {},
                         },
                         size: {
                             value: 40,
