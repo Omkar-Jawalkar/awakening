@@ -39,7 +39,7 @@ const ActionBackground = ({
                         {children && children()}
                     </div>
                     <div className="text-4xl drop-shadow-[0_0_10px_rgba(236,72,153,0.8)] p-6">
-                        {timer}
+                        {typeof timer === "function" ? timer() : timer}
                     </div>
                 </div>
             </div>
